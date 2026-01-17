@@ -79,6 +79,23 @@ We evaluate on three standard benchmarks:
 
 Please follow dataset preparation instructions in `model_training/sample4geo/dataset/` or use the provided helper scripts.
 
+## Pre-processing: Generate Spatial Priors
+
+The network relies on satellite-view spatial priors produced by SAMGeo. If you have already downloaded the provided priors, skip this step. Otherwise run:
+
+```bash
+# Generate SAMGeo masks for satellite reference images
+python prior_generation/autosam_CVUSA.py   # for CVUSA
+python prior_generation/autosam_CVACT.py   # for CVACT
+python prior_generation/autosam_VIGOR.py   # for VIGOR
+
+# Convert SAMGeo masks to BEV spatial semantic representations
+python prior_generation/genre_BEVlabel_CVUSA_ACT.py   # CVUSA & CVACT
+python prior_generation/genre_BEVlabel_VIGOR.py       # VIGOR
+```
+
+These scripts will create BEV label files under each dataset directory (e.g. `sat_BEV_label/` for CVUSA/CVACT and `map_repro/` for VIGOR) which are consumed during model training.
+
 ## Training Examples
 
 ```bash
