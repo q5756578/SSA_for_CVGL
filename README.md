@@ -1,5 +1,8 @@
 # Augmenting Cross-View Geo-Localization with Spatial Semantics from Vision Foundation Models
 
+<p align="center">
+  <img src="logo.jpg" alt="SSA-CVGL Logo" width="250" />
+</p>
 
 ## Acknowledgments
 
@@ -10,7 +13,6 @@ We would like to express our sincere gratitude to:
 - The CVUSA dataset authors ([https://mvrl.cse.wustl.edu/datasets/cvusa/](https://mvrl.cse.wustl.edu/datasets/cvusa/)) for collecting and sharing the widely-used cross-view geo-localization benchmark.
 - The CVACT dataset authors ([https://github.com/Liumouliu/OriCNN](https://github.com/Liumouliu/OriCNN)) for extending CVUSA to large-scale city-scale evaluation.
 - The VIGORv2 dataset creators ([https://github.com/Jeff-Zilence/VIGOR](https://github.com/Jeff-Zilence/VIGOR)) for providing comprehensive ground-to-aerial image pairs with rich spatial and textual context, which greatly facilitated our research.
-
 
 ## Abstract
 
@@ -73,15 +75,16 @@ pip install -r model_training/requirements.txt
 
 We evaluate on three standard benchmarks:
 
-| Dataset | Ground images | Satellite images | Extras |
-|---------|---------------|------------------|--------|
-| CVUSA   | 35 k train / 8 k val | 35 k / 8 k | BEV labels |
-| CVACT   | 35 k train / 92 k test | 35 k / 92 k | BEV labels |
-| VIGOR   | 102 k train / 25 k val | 102 k / 25 k | Depth + BEV |
+| Dataset | Ground images          | Satellite images | Extras      |
+| ------- | ---------------------- | ---------------- | ----------- |
+| CVUSA   | 35 k train / 8 k val   | 35 k / 8 k       | BEV labels  |
+| CVACT   | 35 k train / 92 k test | 35 k / 92 k      | BEV labels  |
+| VIGOR   | 102 k train / 25 k val | 102 k / 25 k     | Depth + BEV |
 
 Download links and preparation:
 
 - **CVUSA**
+
   1. Request and download images from the official repository: https://mvrl.cse.wustl.edu/datasets/cvusa/
   2. Unzip files and arrange as
      ```
@@ -90,24 +93,24 @@ Download links and preparation:
        bingmap/     # satellite
        splits/*.csv # provided train / val split files
      ```
-
 - **CVACT**
+
   1. Download from the OriCNN repository: https://github.com/Liumouliu/OriCNN
   2. Extract to `cvact/` keeping the `CVACT_new` and `CVACT` sub-folders described below.
   3. Move the orientation `.mat` files to `model_training/sample4geo/dataset/CVACT_orientations/` if you intend to use orientation supervision.
-
 - **VIGOR**
+
   1. Clone or download the dataset from the official repository: https://github.com/Jeff-Zilence/VIGOR
   2. Follow their guideline to fetch the image archives and metadata; then extract so the structure matches
      ```
      vigor/
        splits/
        <city>/
-         ground_npy/
-         sat_npy/
-         map_repro/  # BEV labels (optionally updated via SliceMatch)
+         ground/
+         sat/
+         map_repro/  # BEV labels (optionally updated via SAMGEO)
      ```
-  3. (Optional) Resolution-corrected BEV labels provided by the SliceMatch authors can be found in their repo and copied to `map_repro/` if desired.
+  3. (Optional) Resolution-corrected BEV labels provided by the SAMGEO  can be found in their repo and copied to `map_repro/` if desired.
 
 After extraction **run the pre-processing scripts** (see next section) to create BEV label folders expected by the training code.
 
@@ -132,13 +135,13 @@ These scripts will create BEV label files under each dataset directory (e.g. `sa
 
 ```bash
 # CVACT
-python model_training/train_cvact.py --config configs/cvact.yaml
+python model_training/train_cvact.py 
 
 # CVUSA
-python model_training/train_cvusa.py --config configs/cvusa.yaml
+python model_training/train_cvusa.py 
 
 # VIGOR (same-area)
-python model_training/train_vigor_DP.py --config configs/vigor.yaml
+python model_training/train_vigor_DP.py 
 ```
 
 ## Evaluation Examples
@@ -158,3 +161,4 @@ If you use this repository, please cite our paper:
 ## License
 
 Distributed under the MIT license; see `LICENSE` for details.
+```
