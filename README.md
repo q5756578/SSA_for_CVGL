@@ -7,7 +7,9 @@ We would like to express our sincere gratitude to:
 
 - The SAMGeo team ([https://samgeo.gishub.org/](https://samgeo.gishub.org/)) for their excellent foundation vision model that provides high-quality spatial priors for our BEV transformation task.
 - The Sample4Geo authors ([https://github.com/Skyy93/Sample4Geo](https://github.com/Skyy93/Sample4Geo)) for their innovative work on dynamic similarity sampling strategies, which significantly improved our model's training process.
-- The VIGORv2 dataset creators ([https://gitlab.com/vail-uvm/GPG2A](https://gitlab.com/vail-uvm/GPG2A)) for providing comprehensive ground-to-aerial image pairs with rich spatial and textual context, which greatly facilitated our research. 
+- The CVUSA dataset authors ([https://mvrl.cse.wustl.edu/datasets/cvusa/](https://mvrl.cse.wustl.edu/datasets/cvusa/)) for collecting and sharing the widely-used cross-view geo-localization benchmark.
+- The CVACT dataset authors ([https://github.com/Liumouliu/OriCNN](https://github.com/Liumouliu/OriCNN)) for extending CVUSA to large-scale city-scale evaluation.
+- The VIGORv2 dataset creators ([https://github.com/Jeff-Zilence/VIGOR](https://github.com/Jeff-Zilence/VIGOR)) for providing comprehensive ground-to-aerial image pairs with rich spatial and textual context, which greatly facilitated our research.
 
 
 ## Abstract
@@ -77,7 +79,37 @@ We evaluate on three standard benchmarks:
 | CVACT   | 35 k train / 92 k test | 35 k / 92 k | BEV labels |
 | VIGOR   | 102 k train / 25 k val | 102 k / 25 k | Depth + BEV |
 
-Please follow dataset preparation instructions in `model_training/sample4geo/dataset/` or use the provided helper scripts.
+Download links and preparation:
+
+- **CVUSA**
+  1. Request and download images from the official repository: https://mvrl.cse.wustl.edu/datasets/cvusa/
+  2. Unzip files and arrange as
+     ```
+     cvusa/
+       streetview/  # ground
+       bingmap/     # satellite
+       splits/*.csv # provided train / val split files
+     ```
+
+- **CVACT**
+  1. Download from the OriCNN repository: https://github.com/Liumouliu/OriCNN
+  2. Extract to `cvact/` keeping the `CVACT_new` and `CVACT` sub-folders described below.
+  3. Move the orientation `.mat` files to `model_training/sample4geo/dataset/CVACT_orientations/` if you intend to use orientation supervision.
+
+- **VIGOR**
+  1. Clone or download the dataset from the official repository: https://github.com/Jeff-Zilence/VIGOR
+  2. Follow their guideline to fetch the image archives and metadata; then extract so the structure matches
+     ```
+     vigor/
+       splits/
+       <city>/
+         ground_npy/
+         sat_npy/
+         map_repro/  # BEV labels (optionally updated via SliceMatch)
+     ```
+  3. (Optional) Resolution-corrected BEV labels provided by the SliceMatch authors can be found in their repo and copied to `map_repro/` if desired.
+
+After extraction **run the pre-processing scripts** (see next section) to create BEV label folders expected by the training code.
 
 ## Pre-processing: Generate Spatial Priors
 
