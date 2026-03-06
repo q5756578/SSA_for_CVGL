@@ -1,8 +1,15 @@
 # Augmenting Cross-View Geo-Localization with Spatial Semantics from Vision Foundation Models
 
 <p align="center">
-  <img src="logo.jpg" alt="SSA-CVGL Logo" width="250" />
+
+<img src="logo.jpg" alt="SSA-CVGL Logo" width="250" />
+
 </p>
+
+<p align="center">
+🔥 <b>Accepted at WWW 2026</b>
+</p>
+
 
 ## Acknowledgments
 
@@ -13,6 +20,18 @@ We would like to express our sincere gratitude to:
 - The CVUSA dataset authors ([https://mvrl.cse.wustl.edu/datasets/cvusa/](https://mvrl.cse.wustl.edu/datasets/cvusa/)) for collecting and sharing the widely-used cross-view geo-localization benchmark.
 - The CVACT dataset authors ([https://github.com/Liumouliu/OriCNN](https://github.com/Liumouliu/OriCNN)) for extending CVUSA to large-scale city-scale evaluation.
 - The VIGORv2 dataset creators ([https://github.com/Jeff-Zilence/VIGOR](https://github.com/Jeff-Zilence/VIGOR)) for providing comprehensive ground-to-aerial image pairs with rich spatial and textual context, which greatly facilitated our research.
+
+🔔 News
+
+🎉 Our paper has been accepted by the Web Conference 2026 (WWW 2026)!
+
+Augmenting Cross-View Geo-Localization with Spatial Semantics from Vision Foundation Models
+
+This work introduces an auxiliary task-enhanced framework for cross-view geo-localization that integrates spatial semantic alignment derived from Vision Foundation Models. The method bridges the gap between feature-based retrieval accuracy and spatial interpretability, achieving strong performance on multiple CVGL benchmarks.
+
+📄 Paper, code, and resources are available in this repository.
+We will release additional materials (e.g., trained models and supplementary visualizations) soon.
+
 
 ## Abstract
 
